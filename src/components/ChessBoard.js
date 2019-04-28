@@ -6,9 +6,10 @@ import React from 'react';
 import ChessSquare from './ChessSquare';
 
 const ChessBoardContainer = styled.div`
-    border: 2px solid cyan;
     display: flex;
+    flex: 3;
     flex-direction: column;
+    margin-top: 20px;
 `
 
 const ChessRow = styled.div`

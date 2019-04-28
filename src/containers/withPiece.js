@@ -3,7 +3,6 @@ import React from 'react';
 import { compose } from 'redux';
 
 const findPieceBySquareID = (squareID, pieces) => {
-    console.log(squareID, pieces);
     return pieces.find(piece => piece.square_id === squareID) || null;
 }
 
