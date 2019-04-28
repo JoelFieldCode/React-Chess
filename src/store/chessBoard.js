@@ -1,7 +1,8 @@
-const initialState = {
-    rows: [
+import { initialRows, mappedRows } from './generateRows';
 
-    ]
+const initialState = {
+    rows: initialRows,
+    mappedRows: mappedRows,
 }
 
 export default (state = initialState, action) => {

@@ -1,33 +1,16 @@
 import React from 'react';
+import ChessBoard from './components/ChessBoard';
 import logo from './logo.svg';
-import { connect } from 'react-redux';
 import './App.css';
 
-function App(props) {
-  console.log(props);
+function App() {
   return (
     <div className="App">
-      {}
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <ChessBoard />
       </header>
     </div>
   );
 }
 
-const mapStateToProps = (state) => ({
-  ...state
-})
-
-export default connect(mapStateToProps, null)(App);
+export default App;
