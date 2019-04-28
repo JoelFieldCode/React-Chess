@@ -27,6 +27,16 @@ const StyledChessSquare = styled.div`
           background: white;
           color: black;
         `};
+    ${props =>
+        props.active &&
+        css`
+          background: ${green[500]} !important;
+        `};
+    ${props =>
+        props.disabled &&
+        css`
+          pointer-events: none;
+        `};
 `
 
 const styles = {
@@ -42,26 +52,27 @@ const ChessSquare = (props) => {
     let extraChessSquareProps = {};
     if (props.selectedPiece) {
       extraChessSquareProps.onClick = () => {
-        // move square action
-        console.log('here');
         props.moveToSquare(props.square);
       }
     } else {
       extraAvatarProps.onClick = () => {
-        console.log('no here');
         props.selectPiece(props.piece);
       }
     }
 
-
     return (
-       <StyledChessSquare {...extraChessSquareProps} even={props.square.even}>
-        {/* {props.square.id} */}
+       <StyledChessSquare 
+        {...extraChessSquareProps} 
+        active={props.squareIsSelectable}
+        disabled={props.selectedPiece && !props.squareIsSelectable}
+        even={props.square.even}
+      >
+        {props.square.id}
             {props.piece && 
                 <Avatar
                   {...extraAvatarProps}
                   src={props.piece.url} 
-                  className={props.classes.greenAvatar} 
+                  className={props.isSelectedPiece ? props.classes.greenAvatar : ''} 
                 />
             }
     
@@ -77,7 +88,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = (state) => ({
-  selectedPiece: state.chessBoard.selectedPiece
+  // selectedPiece: state.chessBoard.selectedPiece
 })
 
 export default compose(

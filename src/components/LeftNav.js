@@ -8,7 +8,6 @@ const StyledNav = styled.div`
 `;
 
 const LeftNav = (props) => {
-    console.log(props);
     return (
         <StyledNav>
             {props.selectedPiece && props.selectedPiece.type}

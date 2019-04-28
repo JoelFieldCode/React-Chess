@@ -20,11 +20,11 @@ const ChessRow = styled.div`
 const ChessBoard = (props) => {
     return (
         <ChessBoardContainer>
-            {props.chessBoard.mappedRows.map((row, index) => {
+            {props.mappedRows.map((mappedRow, rowIndex) => {
                 return (
-                    <ChessRow key={index}>
-                        {row.map((square) => {
-                            return <ChessSquare key={square.id} index={index} square={square} />
+                    <ChessRow key={rowIndex}>
+                        {mappedRow.map((square, squareIndex) => {
+                            return <ChessSquare key={square.id} index={squareIndex} square={square} />
                         })}
                     </ChessRow>
                 );
@@ -34,7 +34,7 @@ const ChessBoard = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-    ...state,
+    mappedRows: state.chessBoard.rows
 })
 
 export default compose(

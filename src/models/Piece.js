@@ -1,9 +1,8 @@
 export default class Piece {
-    constructor(type) {
-        this.type = type;
-    }
-
-    canMoveToSquare(square) {
-        console.log(this);
+    currentSquare = null;
+    selectedPiece = null;
+    constructor(currentSquare, selectedPiece) {
+        this.currentSquare = currentSquare;
+        this.selectedPiece = selectedPiece;
     }
 }

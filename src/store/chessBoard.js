@@ -1,10 +1,10 @@
-import { initialRows, mappedRows } from './generateRows';
+import { mappedRows } from './generateRows';
 import initialPieces from './generatePieces';
 
 const initialState = {
-    rows: initialRows,
-    mappedRows: mappedRows,
+    rows: mappedRows,
     pieces: initialPieces,
+    selectedPiece: null
 }
 
 const SELECT_PIECE = 'SELECT_PIECE';

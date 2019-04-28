@@ -1,12 +1,4 @@
-const generateInitialRows = () => {
-    const N = 64;
-    return Array.from(Array(N).keys()).map(number => ({
-        hovering: false,
-        id: number + 1,
-    }));
-}
-
-const getMappedRows = (rows) => {
+const getMappedRows = () => {
     const mappedRows = [];
     let lastId = 1;
     for(var i = 0; i < 8; i++) {
@@ -15,7 +7,6 @@ const getMappedRows = (rows) => {
             nextSet.push({
                 even: i % 2 === j % 2,
                 id: lastId++,
-                hovering: false,
             });
         }
         mappedRows.push(nextSet);
@@ -23,5 +14,4 @@ const getMappedRows = (rows) => {
     return mappedRows;
 }
 
-export const initialRows = generateInitialRows();
-export const mappedRows = getMappedRows(initialRows);
+export const mappedRows = getMappedRows();
