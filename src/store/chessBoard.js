@@ -28,7 +28,11 @@ export default (state = initialState, action) => {
         selectedPiece: action.piece
       }
       case MOVE_TO_SQUARE:
-        const newPieces = state.pieces.map(piece => {
+        const newPieces = state.pieces.filter(piece => {
+          // remove any piece that was taken in this move
+          return piece.square_id !== action.square.id;
+        }).map(piece => {
+          // move the piece to the square that was selected
           if (piece.id !== state.selectedPiece.id) {
             return piece;
           } else {

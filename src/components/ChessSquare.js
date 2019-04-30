@@ -18,6 +18,7 @@ const StyledChessSquare = styled.div`
     font-size: 14px;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
     &:hover {
       background: ${indigo[500]}
     }
@@ -30,7 +31,7 @@ const StyledChessSquare = styled.div`
     ${props =>
         props.active &&
         css`
-          background: ${green[500]} !important;
+          // background: ${green[500]} !important;
         `};
     ${props =>
         props.disabled &&
@@ -64,18 +65,16 @@ const ChessSquare = (props) => {
        <StyledChessSquare 
         {...extraChessSquareProps} 
         active={props.squareIsSelectable}
-        disabled={props.selectedPiece && !props.squareIsSelectable}
+        disabled={props.squareIsDisabled}
         even={props.square.even}
       >
-        {props.square.id}
-            {props.piece && 
-                <Avatar
-                  {...extraAvatarProps}
-                  src={props.piece.url} 
-                  className={props.isSelectedPiece ? props.classes.greenAvatar : ''} 
-                />
-            }
-    
+        {props.piece && 
+            <Avatar
+              {...extraAvatarProps}
+              src={props.piece.url} 
+              className={props.isSelectedPiece ? props.classes.greenAvatar : ''} 
+            />
+        }
        </StyledChessSquare>
     )
 }
@@ -87,12 +86,8 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const mapStateToProps = (state) => ({
-  // selectedPiece: state.chessBoard.selectedPiece
-})
-
 export default compose(
-    connect(mapStateToProps, mapDispatchToProps),
+    connect(null, mapDispatchToProps),
     withStyles(styles),
     withPiece
 )(ChessSquare)
