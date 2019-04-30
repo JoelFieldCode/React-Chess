@@ -9,6 +9,7 @@ const initialState = {
 
 const SELECT_PIECE = 'SELECT_PIECE';
 const MOVE_TO_SQUARE = 'MOVE_TO_SQUARE';
+const UNSELECT_PIECE = 'UNSELECT_PIECE';
 
 export const selectPiece = (piece) => ({    
     type: SELECT_PIECE,
@@ -20,6 +21,10 @@ export const moveToSquare = (square) => ({
   square,
 });
 
+export const unSelectPiece = () => ({    
+  type: UNSELECT_PIECE,
+});
+
 export default (state = initialState, action) => {
     switch (action.type) {
      case SELECT_PIECE:
@@ -27,6 +32,11 @@ export default (state = initialState, action) => {
         ...state,
         selectedPiece: action.piece
       }
+      case UNSELECT_PIECE:
+        return {
+          ...state,
+          selectedPiece: null,
+        }
       case MOVE_TO_SQUARE:
         const newPieces = state.pieces.filter(piece => {
           // remove any piece that was taken in this move

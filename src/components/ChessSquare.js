@@ -9,7 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 
 import withPiece from '../containers/withPiece';
 
-import { selectPiece, moveToSquare } from '../store/chessBoard';
+import { selectPiece, moveToSquare, unSelectPiece } from '../store/chessBoard';
 
 const StyledChessSquare = styled.div`
     height: 70px;
@@ -53,7 +53,13 @@ const ChessSquare = (props) => {
     let extraChessSquareProps = {};
     if (props.selectedPiece) {
       extraChessSquareProps.onClick = () => {
-        props.moveToSquare(props.square);
+        // user selected the same square as the selected piece, reset
+        if (props.selectedPiece.square_id === props.square.id) {
+          props.unSelectPiece()
+        } else {
+          // user selected a square to move the piece to
+          props.moveToSquare(props.square);
+        }
       }
     } else {
       extraAvatarProps.onClick = () => {
@@ -82,7 +88,8 @@ const ChessSquare = (props) => {
 const mapDispatchToProps = dispatch => {
   return {
     selectPiece: piece => dispatch(selectPiece(piece)),
-    moveToSquare: (square, piece) => dispatch(moveToSquare(square, piece)) 
+    moveToSquare: (square, piece) => dispatch(moveToSquare(square, piece)),
+    unSelectPiece: () => dispatch(unSelectPiece())
   }
 }
 
