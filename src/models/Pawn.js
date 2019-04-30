@@ -2,7 +2,6 @@ import Piece from './Piece';
 
 export default class Pawn extends Piece {
     canMoveToSquare () {
-        console.log(this);
         const squareID = this.currentSquare.id;
         const pieceLocationID = this.selectedPiece.square_id;
 
@@ -13,7 +12,7 @@ export default class Pawn extends Piece {
             else if (pieceLocationID + 8 === squareID) {
                 return true;
             }
-            else if (pieceLocationID + 9 === squareID) {
+            else if (pieceLocationID + 9 === squareID && !this.isOuterEdgeSquare) {
                 return true;
             }
             // TOP
