@@ -6,35 +6,27 @@ import React from 'react';
 import ChessSquare from './ChessSquare';
 
 const ChessBoardContainer = styled.div`
-    display: flex;
-    flex: 3;
-    flex-direction: column;
-    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
 `
 
-const ChessRow = styled.div`
-    display: flex;
-    flex-direction: row;
-`
+const outOfBoundRightColumn = [9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119]
 
 const ChessBoard = (props) => {
     return (
         <ChessBoardContainer>
-            {props.mappedRows.map((mappedRow, rowIndex) => {
-                return (
-                    <ChessRow key={rowIndex}>
-                        {mappedRow.map((square, squareIndex) => {
-                            return <ChessSquare key={square.id} index={squareIndex} square={square} />
-                        })}
-                    </ChessRow>
-                );
+            {props.squares.map((square, squareIndex) => {
+                if (square.square_id > 19 && square.square_id < 99 && square.square_id % 10 !== 0 && !outOfBoundRightColumn.includes(square.square_id)) {
+                    return <ChessSquare key={squareIndex} index={squareIndex} square={square} />
+                }
             })}
         </ChessBoardContainer>
     )
 }
 
 const mapStateToProps = (state) => ({
-    mappedRows: state.chessBoard.rows
+    mappedRows: state.chessBoard.rows,
+    squares: state.chessBoard.squares
 })
 
 export default compose(

@@ -4,6 +4,7 @@ import initialPieces from './generatePieces';
 const initialState = {
     rows: mappedRows,
     pieces: initialPieces,
+    squares: initialPieces,
     selectedPiece: null
 }
 

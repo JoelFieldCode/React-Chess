@@ -3,7 +3,17 @@ import React from 'react';
 import { compose } from 'redux';
 
 const findPieceBySquareID = (squareID, pieces) => {
-    return pieces.find(piece => piece.square_id === squareID) || null;
+    // console.log(pieces, squareID);
+    return pieces.find(piece => {
+        // console.log(piece);
+        if (piece.square_id > 36) {
+            console.log(piece, squareID);
+        }
+        if (piece && piece.square_id) {
+            return piece.square_id === squareID;
+        }
+        return false;
+    });
 }
 
 const mapStateToProps = (state) => ({
@@ -28,7 +38,7 @@ const squareIsDisabled = (selectedPiece, piece, square) => {
 
 const withPiece = (WrappedComponent) => {
     const WP = (props) => {
-        const piece = findPieceBySquareID(props.square.id, props.pieces);
+        const piece = findPieceBySquareID(props.square.square_id, props.pieces);
         const isSelectedPiece = props.selectedPiece && piece && (piece.id === props.selectedPiece.id);
         const disabledSquare = squareIsDisabled(props.selectedPiece, piece, props.square);
         return (

@@ -22,13 +22,13 @@ const StyledChessSquare = styled.div`
     &:hover {
       background: ${indigo[500]}
     }
-    ${props =>
+    /* ${props =>
         props.even &&
         css`
           background: white;
           color: black;
-        `};
-    ${props =>
+        `}; */
+    /* ${props =>
         props.active &&
         css`
           // background: ${green[500]} !important;
@@ -37,7 +37,7 @@ const StyledChessSquare = styled.div`
         props.disabled &&
         css`
           pointer-events: none;
-        `};
+        `}; */
 `
 
 const styles = {
@@ -68,11 +68,12 @@ const ChessSquare = (props) => {
     }
 
     return (
-       <StyledChessSquare 
+       <StyledChessSquare
+        className="square"
         {...extraChessSquareProps} 
         active={props.squareIsSelectable}
         disabled={props.squareIsDisabled}
-        even={props.square.even}
+        even={props.square.square_id % 2 !== 0}
       >
         {props.piece && 
             <Avatar
