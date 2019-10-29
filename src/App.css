@@ -1,23 +1,26 @@
 .App-content {
   background-color: #282c34;
-  min-height: 100vh;
+  height: 100%;
   display: flex;
-  flex: 1;
-  flex-wrap: wrap;
+  justify-content: center;
   width: 100%;
-  flex-direction: row;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding-top: 50px;
 }
 
-.square:nth-child(-2n+9), 
-.square:nth-child(9) ~ div:nth-child(-2n+16), 
-.square:nth-child(17) ~ div:nth-child(-2n+25), 
-.square:nth-child(25) ~ div:nth-child(-2n+32), 
-.square:nth-child(33) ~ div:nth-child(-2n+41), 
-.square:nth-child(41) ~ div:nth-child(-2n+48), 
-.square:nth-child(49) ~ div:nth-child(-2n+57), 
-.square:nth-child(57) ~ div:nth-child(-2n+64){
-  background-color: #441a03;
-  color: #fff;
+.square {
+  background-color: #34495e;
+}
+
+.square:nth-child(-n+8):nth-child(even),
+.square:nth-child(n+8):nth-child(-n+16):nth-child(odd),
+.square:nth-child(n+17):nth-child(-n+24):nth-child(even),
+.square:nth-child(n+25):nth-child(-n+32):nth-child(odd),
+.square:nth-child(n+33):nth-child(-n+41):nth-child(even),
+.square:nth-child(n+41):nth-child(-n+48):nth-child(odd),
+.square:nth-child(n+49):nth-child(-n+56):nth-child(even),
+.square:nth-child(n+57):nth-child(-n+64):nth-child(odd)
+{
+  background-color: white;
 }

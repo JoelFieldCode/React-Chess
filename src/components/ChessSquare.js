@@ -20,15 +20,9 @@ const StyledChessSquare = styled.div`
     justify-content: center;
     cursor: pointer;
     &:hover {
-      background: ${indigo[500]}
+      background: ${indigo[500]} !important;
     }
-    /* ${props =>
-        props.even &&
-        css`
-          background: white;
-          color: black;
-        `}; */
-    /* ${props =>
+    ${props =>
         props.active &&
         css`
           // background: ${green[500]} !important;
@@ -37,7 +31,7 @@ const StyledChessSquare = styled.div`
         props.disabled &&
         css`
           pointer-events: none;
-        `}; */
+        `};
 `
 
 const styles = {
@@ -63,7 +57,7 @@ const ChessSquare = (props) => {
       }
     } else {
       extraAvatarProps.onClick = () => {
-        props.selectPiece(props.piece);
+        props.selectPiece(props.square);
       }
     }
 
@@ -73,7 +67,6 @@ const ChessSquare = (props) => {
         {...extraChessSquareProps} 
         active={props.squareIsSelectable}
         disabled={props.squareIsDisabled}
-        even={props.square.square_id % 2 !== 0}
       >
         {props.piece && 
             <Avatar

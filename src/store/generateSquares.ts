@@ -1,5 +1,3 @@
-import { uniqueId } from 'lodash';
-
 export interface Square {
     type?: string;
     square_id: number;
@@ -7,15 +5,7 @@ export interface Square {
     url?: string
 }
 
-// const generatedSquares = new Array(120).map((val, index => {
-//     if (index > 20 && index < 39) {
-
-//     } else if (index > 81 && index < 99{
-
-//     }
-// }));
-
-const generatedSquares = [
+const generatedSquares: Square[] = [
     {
         type: 'ROOK',
         player_id: 1,
@@ -210,10 +200,7 @@ const generatedSquares = [
         square_id: 88,
         url: 'https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg'
     },
-].map(piece => ({
-    ...piece,
-    id: uniqueId()
-}));
+];
 
 const squares: any = new Array(120).fill(undefined).map((v, i) => {
     const foundSquare = generatedSquares.find(square => square.square_id === i)
@@ -225,33 +212,5 @@ const squares: any = new Array(120).fill(undefined).map((v, i) => {
         }
     }
 });
-
-// console.log(squares);
-
-// let squareCounter = 0;
-// for(let i = 21; i < 37; i++) {
-//     squares[i] = {
-//         ...squares[i],
-//         ...generatedSquares[squareCounter]
-//     }
-//     // squares[i].square_id = i;
-//     squareCounter++;
-// }
-
-// console.log(squareCounter);
-
-// console.log(generatedSquares.length)
-
-// for(let i = 81; i < 97; i++) {
-//     // console.log(generatedSquares[squareCounter])
-//     squares[i] = {
-//         ...squares[i],
-//         ...generatedSquares[squareCounter]
-//     }
-//     // squares[i].square_id = i;
-//     squareCounter++;
-// }
-
-console.log(squares);
 
 export default squares;

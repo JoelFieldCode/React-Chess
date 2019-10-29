@@ -1,10 +1,7 @@
-import { mappedRows } from './generateRows';
-import initialPieces from './generatePieces';
+import initialSquares from './generateSquares';
 
 const initialState = {
-    rows: mappedRows,
-    pieces: initialPieces,
-    squares: initialPieces,
+    squares: initialSquares,
     selectedPiece: null
 }
 
@@ -39,24 +36,39 @@ export default (state = initialState, action) => {
           selectedPiece: null,
         }
       case MOVE_TO_SQUARE:
-        const newPieces = state.pieces.filter(piece => {
+        const newSquares = state.squares.map(square => {
           // remove any piece that was taken in this move
-          return piece.square_id !== action.square.id;
-        }).map(piece => {
-          // move the piece to the square that was selected
-          if (piece.id !== state.selectedPiece.id) {
-            return piece;
-          } else {
+          if (square.square_id === action.square.square_id) {
             return {
-              ...piece,
-              square_id: action.square.id,
+              square_id: square.square_id
+            }
+          } else {
+            return square;
+          }
+        }).map(square => {
+          // remove selected piece from it's current square
+          if (square.square_id === state.selectedPiece.square_id) {
+            return {
+              square_id: square.square_id
+            }
+          } else if (action.square.square_id === square.square_id) {
+            // move selected piece to selected square
+            return {
+              ...square,
+              type: state.selectedPiece.type,
+              url: state.selectedPiece.url,
+              player_id: state.selectedPiece.player_id
             }
           }
+          else {
+            return square;
+          }
         });
+
         return {
           ...state,
           selectedPiece: null,
-          pieces: newPieces,
+          squares: newSquares,
         }
      default:
       return state

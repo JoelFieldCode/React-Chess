@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <div className="App-content">
-        <LeftNav />
+        {/* <LeftNav /> */}
         <ChessBoard />
       </div>
     </div>

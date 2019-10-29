@@ -2,22 +2,14 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { compose } from 'redux';
 
-const findPieceBySquareID = (squareID, pieces) => {
-    // console.log(pieces, squareID);
-    return pieces.find(piece => {
-        // console.log(piece);
-        if (piece.square_id > 36) {
-            console.log(piece, squareID);
-        }
-        if (piece && piece.square_id) {
-            return piece.square_id === squareID;
-        }
-        return false;
+const findPieceBySquareID = (squareID, squares) => {
+    return squares.find(square => {
+        return square.type && square.square_id === squareID;
     });
 }
 
 const mapStateToProps = (state) => ({
-    pieces: state.chessBoard.pieces,
+    squares: state.chessBoard.squares,
     selectedPiece: state.chessBoard.selectedPiece
 })
 
@@ -38,8 +30,8 @@ const squareIsDisabled = (selectedPiece, piece, square) => {
 
 const withPiece = (WrappedComponent) => {
     const WP = (props) => {
-        const piece = findPieceBySquareID(props.square.square_id, props.pieces);
-        const isSelectedPiece = props.selectedPiece && piece && (piece.id === props.selectedPiece.id);
+        const piece = findPieceBySquareID(props.square.square_id, props.squares);
+        const isSelectedPiece = props.selectedPiece && props.selectedPiece.square_id === props.square.square_id;
         const disabledSquare = squareIsDisabled(props.selectedPiece, piece, props.square);
         return (
             <WrappedComponent 
