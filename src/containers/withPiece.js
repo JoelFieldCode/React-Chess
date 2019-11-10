@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { compose } from 'redux';
+import Pawn from '../models/Pawn';
 
 const findPieceBySquareID = (squareID, squares) => {
     return squares.find(square => {
@@ -13,18 +14,25 @@ const mapStateToProps = (state) => ({
     selectedPiece: state.chessBoard.selectedPiece
 })
 
-const squareIsDisabled = (selectedPiece, piece, square) => {
-    // nothing is selected
-    if (!selectedPiece || !piece) {
-        return false;
-    }
-    // the selected piece's square should be enabled so the user can cancel 
-    if (selectedPiece.square_id === square.id) {
-        return false;
-    }
-    // the piece belongs to the current piece's army
-    if (selectedPiece.player_id === piece.player_id) {
+const squareIsDisabled = (selectedPiece, piece, square, squares) => {
+    if (!selectedPiece && !piece) {
         return true;
+    }
+
+    if (selectedPiece) {
+        if (selectedPiece.square_id === square.square_id) {
+            return false;
+        }
+        if (piece && (selectedPiece.player_id === piece.player_id)) {
+            return true;
+        }
+        switch (selectedPiece.type) {
+            case 'PAWN': 
+                const canMove = new Pawn(square.square_id, squares, selectedPiece.square_id).canMoveToSquare();
+                return !canMove;
+            default:
+                return true;
+        }
     }
 }
 
@@ -32,7 +40,7 @@ const withPiece = (WrappedComponent) => {
     const WP = (props) => {
         const piece = findPieceBySquareID(props.square.square_id, props.squares);
         const isSelectedPiece = props.selectedPiece && props.selectedPiece.square_id === props.square.square_id;
-        const disabledSquare = squareIsDisabled(props.selectedPiece, piece, props.square);
+        const disabledSquare = squareIsDisabled(props.selectedPiece, piece, props.square, props.squares);
         return (
             <WrappedComponent 
                 {...props} 

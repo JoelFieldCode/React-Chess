@@ -5,7 +5,10 @@ import { compose } from 'recompose';
 import React from 'react';
 import green from '@material-ui/core/colors/green';
 import indigo from '@material-ui/core/colors/indigo';
+import orange from '@material-ui/core/colors/orange';
 import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 import withPiece from '../containers/withPiece';
 
@@ -15,9 +18,11 @@ const StyledChessSquare = styled.div`
     height: 70px;
     width: 70px;
     display: flex;
+    color: red;
     font-size: 14px;
     align-items: center;
     justify-content: center;
+    position: relative;
     cursor: pointer;
     &:hover {
       background: ${indigo[500]} !important;
@@ -25,7 +30,7 @@ const StyledChessSquare = styled.div`
     ${props =>
         props.active &&
         css`
-          // background: ${green[500]} !important;
+          // background: ${green[100]} !important;
         `};
     ${props =>
         props.disabled &&
@@ -35,12 +40,21 @@ const StyledChessSquare = styled.div`
 `
 
 const styles = {
-    greenAvatar: {
-      color: '#fff',
-      fontSize: 10,
-      backgroundColor: green[500],
-    },
-  };
+  greenAvatar: {
+    color: '#fff',
+    fontSize: 10,
+    backgroundColor: green[500],
+  },
+};
+
+const StyledCloseButton = styled(IconButton)`
+  position: absolute !important;
+  top: 0px;
+  right: 0px;
+  padding: 0 !important;
+  color: ${orange[500]} !important;
+`;
+
 
 const ChessSquare = (props) => {
     let extraAvatarProps = {};
@@ -48,7 +62,7 @@ const ChessSquare = (props) => {
     if (props.selectedPiece) {
       extraChessSquareProps.onClick = () => {
         // user selected the same square as the selected piece, reset
-        if (props.selectedPiece.square_id === props.square.id) {
+        if (props.selectedPiece.square_id === props.square.square_id) {
           props.unSelectPiece()
         } else {
           // user selected a square to move the piece to
@@ -56,7 +70,7 @@ const ChessSquare = (props) => {
         }
       }
     } else {
-      extraAvatarProps.onClick = () => {
+      extraChessSquareProps.onClick = () => {
         props.selectPiece(props.square);
       }
     }
@@ -68,9 +82,16 @@ const ChessSquare = (props) => {
         active={props.squareIsSelectable}
         disabled={props.squareIsDisabled}
       >
+        {props.isSelectedPiece &&
+          <StyledCloseButton>
+            <CloseIcon />
+          </StyledCloseButton>
+        }
+        {/* <p style={{color: green}}>
+          {props.square.square_id}
+        </p> */}
         {props.piece && 
             <Avatar
-              {...extraAvatarProps}
               src={props.piece.url} 
               className={props.isSelectedPiece ? props.classes.greenAvatar : ''} 
             />
